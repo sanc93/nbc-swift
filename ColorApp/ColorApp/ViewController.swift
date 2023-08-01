@@ -9,7 +9,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var Button1: UIButton!
+    @IBAction func touchButton(_ sender: Any) {
+        self.view.backgroundColor = .yellow
+//        print("touch button")
+    }
     override func viewDidLoad() {
+//        Button1.setTitle("Button 1", for: .normal)
+        Button1.titleLabel?.textColor = .blue
         super.viewDidLoad()
         let button = UIButton(type: .system)
         button.setTitle("Push View Controller", for: .normal)
