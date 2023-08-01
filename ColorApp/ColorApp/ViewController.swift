@@ -11,27 +11,21 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController = UINavigationController()
-        let viewController1 = UIViewController()
-        viewController1.title = "First View Controller"
-        navigationController?.setViewControllers([viewController1], animated: false)
-        addChild(navigationController!)
-        view.addSubview(navigationController!.view)
-        navigationController!.didMove(toParent: self)
-        
-        navigationController!.view.frame = view.bounds
-        
         let button = UIButton(type: .system)
         button.setTitle("Push View Controller", for: .normal)
         button.addTarget(self, action: #selector(pushViewController), for: .touchUpInside)
-        navigationController?.navigationBar.addSubview(button)
+        button.frame = CGRect(x: 200, y: 200, width: 200, height: 100)
+        self.view.addSubview(button)
     }
     
     @objc func pushViewController() {
         let newViewController = UIViewController()
         newViewController.title = "New View Controller"
+        newViewController.view.backgroundColor = .white
         navigationController?.pushViewController(newViewController, animated: true)
     }
+    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // 한번 호출 필요
