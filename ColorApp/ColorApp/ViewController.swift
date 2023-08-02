@@ -7,33 +7,30 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    let pickerView = UIPickerView()
-    let data = ["항목1","항목2","항목3"]
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let data = ["apple","banana", "cherry", "durian", "elderberry"]
+    var tableView: UITableView!
     override func viewDidLoad() {
-        super.viewDidLoad()
-        pickerView.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
-        self.view.addSubview(pickerView)
-        pickerView.dataSource = self
-        pickerView.delegate = self
+        tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.dataSource = self
+        tableView.delegate = self
         
+        view.addSubview(tableView)
     }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+   
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
+        cell.textLabel?.text = data[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("선택", data[indexPath.row])
     }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedValue = data[row]
-        print("선택", selectedValue)
-    }
-    
 
 }
 
