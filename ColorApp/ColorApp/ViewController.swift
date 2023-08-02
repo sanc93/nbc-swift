@@ -7,29 +7,31 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIScrollViewDelegate {
-    var scrollView: UIScrollView!
-    var imageView: UIImageView!
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    let pickerView = UIPickerView()
+    let data = ["항목1","항목2","항목3"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 300), size: CGSize(width: view.bounds.width, height: 300)))
-        scrollView.delegate = self
+        pickerView.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
+        self.view.addSubview(pickerView)
+        pickerView.dataSource = self
+        pickerView.delegate = self
         
-        let image = UIImage(systemName: "folder.fill")
-        imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
-        
-        scrollView.addSubview(imageView)
-        scrollView.contentSize = CGSize(width: view.bounds.width, height: 300*2)
-        scrollView.minimumZoomScale = 0.5
-        scrollView.maximumZoomScale = 2.0
-        view.addSubview(scrollView)
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return data.count
+    }
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return data[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedValue = data[row]
+        print("선택", selectedValue)
     }
     
 
