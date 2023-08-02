@@ -7,65 +7,31 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UIScrollViewDelegate {
+    var scrollView: UIScrollView!
+    var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView = UIScrollView(frame: CGRect(origin: CGPoint(x: 0, y: 300), size: CGSize(width: view.bounds.width, height: 300)))
+        scrollView.delegate = self
         
-        // UILabel
-        let label = UILabel(frame: CGRect(x: 100, y: 100, width: 300, height: 50))
-        label.text = "안녕하세요"
-        label.textColor = .green
-        label.font = .systemFont(ofSize: 30)
-        label.textAlignment = .center
-        self.view.addSubview(label)
-        
-        // UIImageView
-        let imageView = UIImageView(frame: CGRect(x: 100, y: 100, width: 200, height: 200))
         let image = UIImage(systemName: "folder.fill")
-        imageView.image = image
+        imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
-        self.view.addSubview(imageView)
+        imageView.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
         
-        // UITextField
-        let textField = UITextField(frame: CGRect(x: 100, y: 100, width: 200, height: 60))
-        textField.placeholder = "이름을 입력해주세요"
-        self.view.addSubview(textField)
-        
-        // UIButton
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 200, height: 50 ))
-        button.setTitle("버튼", for: .normal)
-        button.backgroundColor = .blue
-        button.addTarget(self, action: #selector(buttonAction2), for: .touchUpInside)
-        self.view.addSubview(button)
-        
-        // UISwitch
-        let mySwitch = UISwitch(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        mySwitch.isOn = true
-        mySwitch.onTintColor = .green
-        mySwitch.thumbTintColor = .white
-        mySwitch.addTarget(self, action: #selector(switchToggled), for: .valueChanged)
-        self.view.addSubview(mySwitch)
+        scrollView.addSubview(imageView)
+        scrollView.contentSize = CGSize(width: view.bounds.width, height: 300*2)
+        scrollView.minimumZoomScale = 0.5
+        scrollView.maximumZoomScale = 2.0
+        view.addSubview(scrollView)
     }
     
-    @objc func buttonAction2() {
-        print("버튼을 눌렀습니다.")
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
     }
     
-    @objc func switchToggled() {
-        print("switch value changed")
-        
-    }
-    
-    
-    @IBAction func buttonAction(_ sender: Any) {
-        print("버튼 누르기")
-    }
-    @IBAction func sliderChange(_ sender: Any) {
-        print("slider", sender)
-    }
-    @IBAction func segment(_ sender: Any) {
-        print("segment")
-    }
+
 }
 
