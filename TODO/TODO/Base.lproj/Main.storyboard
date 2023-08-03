@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TODO" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="TODO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                     <color key="baseBackgroundColor" red="1" green="0.69803921568627447" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="toDoListBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zc9-hV-rCz"/>
+                                    <action selector="toDoBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rg2-t9-JeQ"/>
                                     <segue destination="Uxp-iE-0DA" kind="show" id="9AA-91-rEg"/>
                                 </connections>
                             </button>
@@ -38,8 +38,8 @@
                                     <color key="baseBackgroundColor" red="0.51372549019607838" green="0.73725490196078436" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="completedListBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NjZ-gX-LnU"/>
-                                    <segue destination="22h-1D-DXP" kind="show" id="JHg-PG-NGH"/>
+                                    <action selector="completedBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z2z-x0-U5z"/>
+                                    <segue destination="22h-1D-DXP" kind="show" id="cTM-fE-p19"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -52,15 +52,27 @@
             </objects>
             <point key="canvasLocation" x="959.5419847328244" y="-27.464788732394368"/>
         </scene>
-        <!--View Controller-->
+        <!--Completed View Controller-->
         <scene sceneID="nB3-Qc-4hS">
             <objects>
-                <viewController id="22h-1D-DXP" sceneMemberID="viewController">
+                <viewController id="22h-1D-DXP" customClass="CompletedViewController" customModule="TODO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="slc-Xn-0xN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-dj-9uB">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="cnf-aH-hRC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cnf-aH-hRC" firstAttribute="trailing" secondItem="ynw-dj-9uB" secondAttribute="trailing" id="2xW-HB-o1t"/>
+                            <constraint firstItem="cnf-aH-hRC" firstAttribute="bottom" secondItem="ynw-dj-9uB" secondAttribute="bottom" id="g9R-SW-XnG"/>
+                            <constraint firstItem="ynw-dj-9uB" firstAttribute="top" secondItem="cnf-aH-hRC" secondAttribute="top" id="hOU-xM-FR1"/>
+                            <constraint firstItem="ynw-dj-9uB" firstAttribute="leading" secondItem="cnf-aH-hRC" secondAttribute="leading" id="m0r-S3-NEW"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fnb-KP-OYw"/>
                 </viewController>
@@ -68,21 +80,52 @@
             </objects>
             <point key="canvasLocation" x="1720" y="411"/>
         </scene>
-        <!--View Controller-->
+        <!--To Do View Controller-->
         <scene sceneID="QTl-tG-217">
             <objects>
-                <viewController id="Uxp-iE-0DA" sceneMemberID="viewController">
+                <viewController id="Uxp-iE-0DA" customClass="ToDoViewController" customModule="TODO" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4P4-Q0-h9E">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rbi-25-epp">
+                                <rect key="frame" x="0.0" y="116" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="hOl-Ne-BNR">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hOl-Ne-BNR" id="xir-FA-WRx">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QX4-2w-ATW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="rbi-25-epp" firstAttribute="leading" secondItem="QX4-2w-ATW" secondAttribute="leading" id="4Su-yG-VGg"/>
+                            <constraint firstItem="rbi-25-epp" firstAttribute="top" secondItem="QX4-2w-ATW" secondAttribute="top" id="LxO-jY-zcU"/>
+                            <constraint firstItem="QX4-2w-ATW" firstAttribute="trailing" secondItem="rbi-25-epp" secondAttribute="trailing" id="NUw-gz-gSY"/>
+                            <constraint firstItem="QX4-2w-ATW" firstAttribute="bottom" secondItem="rbi-25-epp" secondAttribute="bottom" id="R2G-uT-gP9"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="u2U-zR-ccR"/>
+                    <navigationItem key="navigationItem" style="editor" id="u2U-zR-ccR">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="qSw-74-G8e">
+                            <connections>
+                                <action selector="AddToDoTaskBtn" destination="Uxp-iE-0DA" id="1PN-UF-0hn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="rbi-25-epp" id="i7A-ms-Pob"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ixl-rh-BsO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1721" y="-291"/>
+            <point key="canvasLocation" x="1719.8473282442746" y="-291.54929577464787"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Rt8-G5-gdb">
