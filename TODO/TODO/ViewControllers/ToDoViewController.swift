@@ -9,6 +9,7 @@ import UIKit
 
 class ToDoViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var emptyTasksUILabel: UILabel!
     
     var toDoTasks = [String]() // TODO 입력값 모두 저장할 배열
     
@@ -16,23 +17,21 @@ class ToDoViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.delegate = self
-        tableView.dataSource .self
-        
-        // 현재 배열에 저장된 값(사용자가 입력한 TODO값들) 모두 가져오기
-        
+        tableView.dataSource = self
         
     }
     
     // + 버튼 눌렀을 때 UIAlertController로 TODO값 입력 (Lv.2)
     @IBAction func AddToDoTaskBtn() {
-        let alertController = UIAlertController(title: "신규", message: "해야할 일을 입력해주세요.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "해야할 일을 입력해주세요", message: "", preferredStyle: .alert)
         
         
-        let submit = UIAlertAction(title: "확인", style: .default) { (action) in
+        let submit = UIAlertAction(title: "확인", style: .default) { _ in
             if let textField = alertController.textFields?.first, let inputText = textField.text {
-                        // 텍스트 필드에서 입력된 값을 가져와서 출력
-                        print("입력된 값: \(inputText)")
-                    }
+                self.toDoTasks.append(inputText)
+                self.emptyTasksUILabel.isHidden = true // 배열에 값이 추가되면 UILabel 가리기
+                self.tableView.reloadData() // 테이블 뷰를 리프레시
+            }
             
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
@@ -49,30 +48,22 @@ class ToDoViewController: UIViewController {
             
         }
         
-        
-        @IBAction func myButtonTouched(_ sender: Any) {
-
-                let alert = UIAlertController(title: "alert", message: "textField", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
-                     //code
-
-                }
-                let cancel = UIAlertAction(title: "cancel", style: .cancel) { (cancel) in
-                     //code
-
-                }
-                
-
-            }
 
 }
 
+
+
+//  TableView 관련..
+
+
+// UITableViewDelegate : 테이블 뷰에 보여지는 부분이나 눌렀을때 이벤트 등..
 extension ToDoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
+// UITableViewDataSource : 테이블 뷰에 표시될 데이터의 개수, 셀의 내용, 섹션의 개수 등을 제공
 extension ToDoViewController: UITableViewDataSource {
     
     // 1. 테이블 row수(toDoTasks배열의 항목 수) 반환

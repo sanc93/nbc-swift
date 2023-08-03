@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func toDoBtn(_ sender: Any) {
-//  //  pushViewController로 화면 전환 시
+//  //  pushViewController로 화면 전환
 //      let vc = storyboard?.instantiateViewController(identifier: "ToDo") as! ToDoViewController
 //      navigationController?.pushViewController(vc, animated: true)
     }
