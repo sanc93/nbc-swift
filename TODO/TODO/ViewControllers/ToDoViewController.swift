@@ -11,7 +11,9 @@ class ToDoViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var emptyTasksUILabel: UILabel!
     
-    var toDoTasks = [String]() // TODO 입력값 저장할 배열
+    // TODO 입력값 저장할 배열
+    var toDoTasks = [String]()
+    
     let toDoTasksKey = "ToDoTasks" // UserDefaults Key값
     
     override func viewDidLoad() {
@@ -21,6 +23,7 @@ class ToDoViewController: UIViewController {
         if let savedData = UserDefaults.standard.array(forKey: toDoTasksKey) as? [String] {
             toDoTasks = savedData
         }
+        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -29,33 +32,24 @@ class ToDoViewController: UIViewController {
     // + 버튼 눌렀을 때 UIAlertController로 TODO값 입력 (Lv.2)
     @IBAction func AddToDoTaskBtn() {
         let alertController = UIAlertController(title: "해야할 일을 입력해주세요", message: "", preferredStyle: .alert)
-        
-        
         let submit = UIAlertAction(title: "확인", style: .default) { _ in
             if let textField = alertController.textFields?.first, let inputText = textField.text {
                 self.toDoTasks.append(inputText)
-                self.emptyTasksUILabel.isHidden = true // 배열에 값이 추가되면 UILabel 가리기
                 self.tableView.reloadData() // 테이블 뷰를 리프레시
                 
                 UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
             }
-            
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
-        
         // UIAlertController에 위에서 만든 UIAlertAction들과, 텍스트필드 장착
         alertController.addAction(submit)
         alertController.addAction(cancel)
         alertController.addTextField { (textfield) in
             textfield.placeholder = "예) 밥 먹기"
         }
-        
         // present 메서드 : 만든 alertController를 모달 방식으로 뷰 컨트롤러 위에 표시
         present(alertController, animated: true, completion: nil)
-            
-        }
-        
-
+    }
 }
 
 
@@ -67,6 +61,25 @@ class ToDoViewController: UIViewController {
 extension ToDoViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+//        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark // TODO: 왼쪽에 체크박스 달기
+    }
+
+    // row를 오른쪽으로 스와이프 시 삭제 버튼 나오도록
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
+            
+            self.toDoTasks.remove(at: indexPath.row) // toDoTasks배열에서 해당 row와 같은 값 삭제
+            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
+                    
+            // 테이블 뷰 리로드
+            tableView.reloadData()
+            print("delete 클릭 됨")
+            success(true)
+        }
+        delete.backgroundColor = .red
+        delete.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
@@ -84,7 +97,8 @@ extension ToDoViewController: UITableViewDataSource {
         
         let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = toDoTasks[indexPath.row]
-        
+        print("--> ",indexPath)
         return cell
     }
 }
+
