@@ -12,7 +12,15 @@ class ToDoViewController: UIViewController {
     @IBOutlet var emptyTasksUILabel: UILabel!
     
     // TODO 입력값 저장할 배열
-    var toDoTasks = [String]()
+    var toDoTasks = [String]() {
+        didSet { // didset: toDoTask에 변화가 감지되면 아래 코드블럭이 호출된다
+            if toDoTasks.isEmpty {
+                self.emptyTasksUILabel.isHidden = false // 배열이 비어있으면 UILabel 숨기기
+            } else {
+                self.emptyTasksUILabel.isHidden = true // 배열에 값이 있으면 UILabel 보이기
+            }
+        }
+    }
     
     let toDoTasksKey = "ToDoTasks" // UserDefaults Key값
     
