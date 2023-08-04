@@ -11,11 +11,16 @@ class ToDoViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var emptyTasksUILabel: UILabel!
     
-    var toDoTasks = [String]() // TODO 입력값 모두 저장할 배열
+    var toDoTasks = [String]() // TODO 입력값 저장할 배열
+    let toDoTasksKey = "ToDoTasks" // UserDefaults Key값
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // UserDefaults로부터 저장된 데이터 가져와서 toDoTask 배열에 넣기
+        if let savedData = UserDefaults.standard.array(forKey: toDoTasksKey) as? [String] {
+            toDoTasks = savedData
+        }
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -31,6 +36,8 @@ class ToDoViewController: UIViewController {
                 self.toDoTasks.append(inputText)
                 self.emptyTasksUILabel.isHidden = true // 배열에 값이 추가되면 UILabel 가리기
                 self.tableView.reloadData() // 테이블 뷰를 리프레시
+                
+                UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
             }
             
         }
