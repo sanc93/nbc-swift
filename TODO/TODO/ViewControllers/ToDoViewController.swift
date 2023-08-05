@@ -72,23 +72,7 @@ extension ToDoViewController: UITableViewDelegate {
 //        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark // TODO: 왼쪽에 체크박스 달기
     }
 
-    // row를 오른쪽으로 스와이프 시 삭제 버튼 나오도록
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
-            
-            self.toDoTasks.remove(at: indexPath.row) // toDoTasks배열에서 해당 row와 같은 값 삭제
-            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
-                    
-            // 테이블 뷰 리로드
-            tableView.reloadData()
-            print("delete 클릭 됨")
-            success(true)
-        }
-        delete.backgroundColor = .red
-        delete.image = UIImage(systemName: "trash")
-        
-        return UISwipeActionsConfiguration(actions: [delete])
-    }
+    
 }
 
 // UITableViewDataSource : 테이블 뷰에 표시될 데이터의 개수, 셀의 내용, 섹션의 개수 등을 제공
@@ -107,6 +91,27 @@ extension ToDoViewController: UITableViewDataSource {
         cell.textLabel?.text = toDoTasks[indexPath.row]
         print("--> ",indexPath)
         return cell
+    }
+    
+    // row를 오른쪽으로 스와이프 시 삭제 버튼 나오도록
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
+            
+            self.toDoTasks.remove(at: indexPath.row) // toDoTasks배열에서 해당 row와 같은 값 삭제
+            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
+                    
+            // 테이블 뷰 리로드
+            tableView.reloadData()
+            print("delete 클릭 됨")
+            success(true)
+            
+            
+            
+        }
+        delete.backgroundColor = .red
+        delete.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
 
