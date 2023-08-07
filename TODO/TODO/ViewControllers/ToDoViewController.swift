@@ -93,7 +93,23 @@ extension ToDoViewController: UITableViewDataSource {
         return cell
     }
     
-    // row를 오른쪽으로 스와이프 시 삭제 버튼 나오도록
+    // row 스와이프(왼쪽)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
+            
+            self.toDoTasks.remove(at: indexPath.row)
+            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
+            
+            // 테이블 뷰 리로드
+            tableView.reloadData()
+            print("처리 완료로 이동")
+            success(true)
+        }
+        moveToCompletedList.backgroundColor = .init(red: 0.51, green: 0.74, blue: 0.14, alpha: 1.0) // #83BC25
+        return UISwipeActionsConfiguration(actions: [moveToCompletedList])
+    }
+    
+    // row 스와이프(오른쪽)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
             
@@ -105,13 +121,12 @@ extension ToDoViewController: UITableViewDataSource {
             print("delete 클릭 됨")
             success(true)
             
-            
-            
         }
         delete.backgroundColor = .red
         delete.image = UIImage(systemName: "trash")
-        
+
         return UISwipeActionsConfiguration(actions: [delete])
     }
+    
 }
 
