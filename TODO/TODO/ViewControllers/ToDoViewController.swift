@@ -93,14 +93,11 @@ extension ToDoViewController: UITableViewDataSource {
     
     // 1. 테이블 row수(toDoTasks배열의 항목 수) 반환
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return toDoTasks.count
     }
     
     // 2. 실제 값(toDoTasks배열의 내용물)을 반환
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
         let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = toDoTasks[indexPath.row].inputText
         return cell
