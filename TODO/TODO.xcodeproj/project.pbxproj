@@ -41,6 +41,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E718A42D2A8237D30071CB11 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E77558982A78D677006FCC7D = {
 			isa = PBXGroup;
 			children = (
@@ -60,7 +67,8 @@
 		E77558A32A78D677006FCC7D /* TODO */ = {
 			isa = PBXGroup;
 			children = (
-				E7EA17202A7B571F0017440A /* ViewControllers */,
+				E718A42D2A8237D30071CB11 /* Models */,
+				E7EA17202A7B571F0017440A /* Views */,
 				E77558A42A78D677006FCC7D /* AppDelegate.swift */,
 				E77558A62A78D677006FCC7D /* SceneDelegate.swift */,
 				E77558AA2A78D677006FCC7D /* Main.storyboard */,
@@ -71,14 +79,14 @@
 			path = TODO;
 			sourceTree = "<group>";
 		};
-		E7EA17202A7B571F0017440A /* ViewControllers */ = {
+		E7EA17202A7B571F0017440A /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				E77558A82A78D677006FCC7D /* MainViewController.swift */,
 				E7EA171C2A7B567F0017440A /* ToDoViewController.swift */,
 				E7EA171E2A7B56A80017440A /* CompletedViewController.swift */,
 			);
-			path = ViewControllers;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
