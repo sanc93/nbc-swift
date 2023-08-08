@@ -12,7 +12,7 @@ class ToDoViewController: UIViewController {
     @IBOutlet var emptyTasksUILabel: UILabel!
     
     // TODO 입력값 저장할 배열
-    var toDoTasks = [String]() {
+    var toDoTasks = [ToDoTask]() {
         didSet { // didset: toDoTask에 변화가 감지되면 아래 코드블럭이 호출된다
             if toDoTasks.isEmpty {
                 self.emptyTasksUILabel.isHidden = false // 배열이 비어있으면 UILabel 숨기기
@@ -28,7 +28,7 @@ class ToDoViewController: UIViewController {
         super.viewDidLoad()
         
         // UserDefaults로부터 저장된 데이터 가져와서 toDoTask 배열에 넣기
-        if let savedData = UserDefaults.standard.array(forKey: toDoTasksKey) as? [String] {
+        if let savedData = UserDefaults.standard.array(forKey: toDoTasksKey) as? [ToDoTask] {
             toDoTasks = savedData
         }
         
@@ -42,7 +42,9 @@ class ToDoViewController: UIViewController {
         let alertController = UIAlertController(title: "해야할 일을 입력해주세요", message: "", preferredStyle: .alert)
         let submit = UIAlertAction(title: "확인", style: .default) { _ in
             if let textField = alertController.textFields?.first, let inputText = textField.text {
-                self.toDoTasks.append(inputText)
+                
+                let newTask = ToDoTask(id: UUID(), inputText: inputText, date: Date(), isCompleted: false)
+                self.toDoTasks.append(newTask)
                 self.tableView.reloadData() // 테이블 뷰를 리프레시
                 
                 UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
@@ -88,8 +90,7 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = toDoTasks[indexPath.row]
-        print("--> ",indexPath)
+        cell.textLabel?.text = toDoTasks[indexPath.row].inputText
         return cell
     }
     
