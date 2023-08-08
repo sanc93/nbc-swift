@@ -27,9 +27,14 @@ class ToDoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         // UserDefaults로부터 저장된 데이터 가져와서 toDoTask 배열에 넣기
-        if let savedData = UserDefaults.standard.array(forKey: toDoTasksKey) as? [ToDoTask] {
-            toDoTasks = savedData
+        if let savedData = UserDefaults.standard.object(forKey: toDoTasksKey) as? Data {
+            let decoder = JSONDecoder()
+            if let savedObject = try? decoder.decode([ToDoTask].self, from: savedData) {
+                toDoTasks = savedObject
+            }
+            
         }
         
         tableView.delegate = self
@@ -47,7 +52,13 @@ class ToDoViewController: UIViewController {
                 self.toDoTasks.append(newTask)
                 self.tableView.reloadData() // 테이블 뷰를 리프레시
                 
-                UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
+
+                
+                let encoder = JSONEncoder()
+                if let encoded = try? encoder.encode(self.toDoTasks) { // toDoTasks 배열을 Data형으로 변환
+                    UserDefaults.standard.setValue(encoded, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
+                }
+                
             }
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
@@ -88,6 +99,7 @@ extension ToDoViewController: UITableViewDataSource {
     
     // 2. 실제 값(toDoTasks배열의 내용물)을 반환
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
         let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = toDoTasks[indexPath.row].inputText

@@ -72,9 +72,9 @@
 			children = (
 				E718A42D2A8237D30071CB11 /* Models */,
 				E7EA17202A7B571F0017440A /* Views */,
+				E77558AA2A78D677006FCC7D /* Main.storyboard */,
 				E77558A42A78D677006FCC7D /* AppDelegate.swift */,
 				E77558A62A78D677006FCC7D /* SceneDelegate.swift */,
-				E77558AA2A78D677006FCC7D /* Main.storyboard */,
 				E77558AD2A78D679006FCC7D /* Assets.xcassets */,
 				E77558AF2A78D679006FCC7D /* LaunchScreen.storyboard */,
 				E77558B22A78D679006FCC7D /* Info.plist */,
