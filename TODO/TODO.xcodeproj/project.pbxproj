@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E718A4312A8238730071CB11 /* ToDoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E718A4302A8238730071CB11 /* ToDoTask.swift */; };
 		E77558A52A78D677006FCC7D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77558A42A78D677006FCC7D /* AppDelegate.swift */; };
 		E77558A72A78D677006FCC7D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77558A62A78D677006FCC7D /* SceneDelegate.swift */; };
 		E77558A92A78D677006FCC7D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77558A82A78D677006FCC7D /* MainViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E718A4302A8238730071CB11 /* ToDoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTask.swift; sourceTree = "<group>"; };
 		E77558A12A78D677006FCC7D /* TODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E77558A42A78D677006FCC7D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E77558A62A78D677006FCC7D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,7 @@
 		E718A42D2A8237D30071CB11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E718A4302A8238730071CB11 /* ToDoTask.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			files = (
 				E7EA171D2A7B567F0017440A /* ToDoViewController.swift in Sources */,
 				E77558A92A78D677006FCC7D /* MainViewController.swift in Sources */,
+				E718A4312A8238730071CB11 /* ToDoTask.swift in Sources */,
 				E77558A52A78D677006FCC7D /* AppDelegate.swift in Sources */,
 				E77558A72A78D677006FCC7D /* SceneDelegate.swift in Sources */,
 				E7EA171F2A7B56A80017440A /* CompletedViewController.swift in Sources */,
