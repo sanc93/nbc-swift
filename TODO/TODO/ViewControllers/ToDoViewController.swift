@@ -113,11 +113,7 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
             
-            if self.toDoTasks[indexPath.row].isCompleted == true {
-                self.toDoTasks[indexPath.row].isCompleted = false
-            } else {
-                self.toDoTasks[indexPath.row].isCompleted = true
-            }
+            self.toDoTasks[indexPath.row].isCompleted.toggle() // Bool값 반전
             
             let encoder = JSONEncoder()
             if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
