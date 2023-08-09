@@ -114,13 +114,15 @@ extension ToDoViewController: UITableViewDataSource {
         let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
             
             
-            self.toDoTasks.remove(at: indexPath.row)
+            self.toDoTasks[indexPath.row].isCompleted = true
             
-            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
-            
+            let encoder = JSONEncoder()
+            if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
+                UserDefaults.standard.set(encodedToDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
+            }
             // 테이블 뷰 리로드
             tableView.reloadData()
-            print("처리 완료로 이동")
+            print(self.toDoTasks)
             success(true)
         }
         moveToCompletedList.backgroundColor = .init(red: 0.51, green: 0.74, blue: 0.14, alpha: 1.0) // #83BC25
