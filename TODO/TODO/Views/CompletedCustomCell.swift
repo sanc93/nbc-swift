@@ -1,18 +1,14 @@
 //
-//  ToDoCustomCell.swift
+//  CompletedCustomCell.swift
 //  TODO
 //
-//  Created by Sanghun K. on 2023/08/08.
+//  Created by Sanghun K. on 2023/08/09.
 //
 
 import UIKit
 
-class ToDoCustomCell: UITableViewCell {
+class CompletedCustomCell: UITableViewCell {
 
-    @IBOutlet var completedBtn: UIButton!
-    @IBOutlet var inputText: UILabel!
-    @IBOutlet var date: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,6 +20,4 @@ class ToDoCustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @IBAction func completedBtn(_ sender: Any) {
-    }
 }
