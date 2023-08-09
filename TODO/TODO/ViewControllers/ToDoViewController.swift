@@ -100,8 +100,18 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "todo_cell", for: indexPath) as! ToDoCustomCell
         
-        cell.inputText.text = toDoTasks[indexPath.row].inputText
+//        cell.inputText.text = toDoTasks[indexPath.row].inputText
         
+        let selectedTask = toDoTasks[indexPath.row]
+        
+        if selectedTask.isCompleted {
+            cell.inputText.attributedText = selectedTask.inputText.strikeThrough()
+            cell.completeStatus(isCompleted: true)
+        } else {
+            cell.inputText.attributedText = NSAttributedString(string: selectedTask.inputText)
+            cell.completeStatus(isCompleted: false)
+        }
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date = dateFormatter.string(from: toDoTasks[indexPath.row].date)
@@ -113,7 +123,7 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
             
-            self.toDoTasks[indexPath.row].isCompleted.toggle() // Bool값 반전
+            self.toDoTasks[indexPath.row].isCompleted.toggle()
             
             let encoder = JSONEncoder()
             if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {

@@ -9,7 +9,9 @@ import UIKit
 
 class ToDoCustomCell: UITableViewCell {
 
+    
     @IBOutlet var completedBtn: UIButton!
+    @IBOutlet var uncompletedBtn: UIButton!
     @IBOutlet var inputText: UILabel!
     @IBOutlet var date: UILabel!
     
@@ -18,12 +20,20 @@ class ToDoCustomCell: UITableViewCell {
         // Initialization code
     }
 
+    func completeStatus(isCompleted: Bool) {
+           completedBtn.isHidden = !isCompleted
+           uncompletedBtn.isHidden = isCompleted
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func completedBtn(_ sender: Any) {
+    @IBAction func uncompletedBtnTapped(_ sender: Any) {
     }
+    
 }
+
+

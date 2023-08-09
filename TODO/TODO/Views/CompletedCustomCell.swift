@@ -9,6 +9,7 @@ import UIKit
 
 class CompletedCustomCell: UITableViewCell {
 
+    @IBOutlet var completedBtn: UIButton!
     @IBOutlet var inputText: UILabel!
     @IBOutlet var date: UILabel!
     
