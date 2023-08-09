@@ -9,6 +9,9 @@ import UIKit
 
 class CompletedCustomCell: UITableViewCell {
 
+    @IBOutlet var inputText: UILabel!
+    @IBOutlet var date: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
