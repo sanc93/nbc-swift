@@ -55,8 +55,8 @@ class ToDoViewController: UIViewController {
 
                 
                 let encoder = JSONEncoder()
-                if let encoded = try? encoder.encode(self.toDoTasks) { // toDoTasks 배열을 Data형으로 변환
-                    UserDefaults.standard.setValue(encoded, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
+                if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) { // toDoTasks 배열을 Data형으로 변환
+                    UserDefaults.standard.setValue(encodedToDoTasks, forKey: self.toDoTasksKey) // toDoTasks를 UserDefaults에 저장
                 }
                 
             }
@@ -98,8 +98,14 @@ extension ToDoViewController: UITableViewDataSource {
     
     // 2. 실제 값(toDoTasks배열의 내용물)을 반환
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = toDoTasks[indexPath.row].inputText
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ToDoCustomCell
+        
+        cell.inputText.text = toDoTasks[indexPath.row].inputText
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.string(from: toDoTasks[indexPath.row].date)
+        cell.date.text = date
         return cell
     }
     
@@ -107,7 +113,9 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
             
+            
             self.toDoTasks.remove(at: indexPath.row)
+            
             UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
             
             // 테이블 뷰 리로드
@@ -124,11 +132,14 @@ extension ToDoViewController: UITableViewDataSource {
         let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
             
             self.toDoTasks.remove(at: indexPath.row) // toDoTasks배열에서 해당 row와 같은 값 삭제
-            UserDefaults.standard.set(self.toDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
-                    
+            
+            let encoder = JSONEncoder()
+            if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
+                UserDefaults.standard.set(encodedToDoTasks, forKey: self.toDoTasksKey) // toDoTasks배열을 UserDefaults에 반영
+            }
+            
             // 테이블 뷰 리로드
             tableView.reloadData()
-            print("delete 클릭 됨")
             success(true)
             
         }
