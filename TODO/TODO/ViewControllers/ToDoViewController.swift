@@ -98,7 +98,7 @@ extension ToDoViewController: UITableViewDataSource {
     
     // 2. 실제 값(toDoTasks배열의 내용물)을 반환
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ToDoCustomCell
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "todo_cell", for: indexPath) as! ToDoCustomCell
         
         cell.inputText.text = toDoTasks[indexPath.row].inputText
         
@@ -113,8 +113,11 @@ extension ToDoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
             
-            
-            self.toDoTasks[indexPath.row].isCompleted = true
+            if self.toDoTasks[indexPath.row].isCompleted == true {
+                self.toDoTasks[indexPath.row].isCompleted = false
+            } else {
+                self.toDoTasks[indexPath.row].isCompleted = true
+            }
             
             let encoder = JSONEncoder()
             if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
