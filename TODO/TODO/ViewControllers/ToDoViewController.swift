@@ -121,7 +121,7 @@ extension ToDoViewController: UITableViewDataSource {
     
     // row 스와이프(왼쪽)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let moveToCompletedList = UIContextualAction(style: .normal, title: "처리 완료") { (_, _, success) in
+        let moveToCompletedList = UIContextualAction(style: .normal, title: self.toDoTasks[indexPath.row].isCompleted ? "처리 완료 취소" : "처리 완료 하기" ) { (_, _, success) in
             
             self.toDoTasks[indexPath.row].isCompleted.toggle()
             
@@ -134,7 +134,7 @@ extension ToDoViewController: UITableViewDataSource {
             print(self.toDoTasks)
             success(true)
         }
-        moveToCompletedList.backgroundColor = .init(red: 0.51, green: 0.74, blue: 0.14, alpha: 1.0) // #83BC25
+        moveToCompletedList.backgroundColor = self.toDoTasks[indexPath.row].isCompleted ? .lightGray : .init(red: 0.51, green: 0.74, blue: 0.14, alpha: 1.0) // #83BC25
         return UISwipeActionsConfiguration(actions: [moveToCompletedList])
     }
     
