@@ -70,8 +70,19 @@ class ToDoViewController: UIViewController {
 }
 
 extension ToDoViewController: UITableViewDelegate {
+    
+    // row를 탭하면 완료/미완료 상태 전환
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        toDoTasks[indexPath.row].isCompleted.toggle()
+        
+        let encoder = JSONEncoder()
+        if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
+            UserDefaults.standard.set(encodedToDoTasks, forKey: self.toDoTasksKey)
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 
@@ -99,27 +110,8 @@ extension ToDoViewController: UITableViewDataSource {
         cell.date.text = date
         return cell
     }
-    
-    // leadingSwipeActionsConfigurationForRowAt : row를 왼쪽 → 오른쪽 스와이프 시
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let moveToCompletedList = UIContextualAction(style: .normal, title: self.toDoTasks[indexPath.row].isCompleted ? "처리 완료 취소" : "처리 완료 하기" ) { (_, _, success) in
 
-            self.toDoTasks[indexPath.row].isCompleted.toggle()
-            
-            let encoder = JSONEncoder()
-            if let encodedToDoTasks = try? encoder.encode(self.toDoTasks) {
-                UserDefaults.standard.set(encodedToDoTasks, forKey: self.toDoTasksKey)
-            }
-            
-            tableView.reloadData()
-            success(true)
-        }
-        moveToCompletedList.backgroundColor = self.toDoTasks[indexPath.row].isCompleted ? .lightGray : .init(red: 0.51, green: 0.74, blue: 0.14, alpha: 1.0) // #83BC25
-        
-        return UISwipeActionsConfiguration(actions: [moveToCompletedList])
-    }
-    
-    // trailingSwipeActionsConfigurationForRowAt : row를 오른쪽 → 왼쪽 스와이프 시
+    // row를 왼쪽으로 스와이프 시 할 일 삭제
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: nil) { (_, _, success) in
             
