@@ -82,7 +82,7 @@ extension ToDoViewController: UITableViewDelegate {
             UserDefaults.standard.set(encodedToDoTasks, forKey: self.toDoTasksKey)
         }
         
-        tableView.reloadRows(at: [indexPath], with: .none)
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 }
 
