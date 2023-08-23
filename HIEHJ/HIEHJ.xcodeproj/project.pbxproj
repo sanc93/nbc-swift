@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		E71EC6022A9660FC003722B3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E71EC6042A9660FC003722B3 /* InfoPlist.strings */; };
+		E73EDD892A9664CA006918EF /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73EDD882A9664CA006918EF /* ToDoListViewController.swift */; };
+		E73EDD8B2A96652F006918EF /* CompletedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73EDD8A2A96652F006918EF /* CompletedListViewController.swift */; };
+		E73EDD8E2A966951006918EF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E73EDD8D2A966951006918EF /* .swiftlint.yml */; };
 		E7E1B1E82A960D9F00AEB403 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1B1E72A960D9F00AEB403 /* AppDelegate.swift */; };
 		E7E1B1EA2A960D9F00AEB403 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1B1E92A960D9F00AEB403 /* SceneDelegate.swift */; };
 		E7E1B1EC2A960D9F00AEB403 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E1B1EB2A960D9F00AEB403 /* MainViewController.swift */; };
@@ -21,6 +24,9 @@
 		E71EC5FF2A966018003722B3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E71EC6062A966139003722B3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E71EC6072A9661A3003722B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E73EDD882A9664CA006918EF /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		E73EDD8A2A96652F006918EF /* CompletedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedListViewController.swift; sourceTree = "<group>"; };
+		E73EDD8D2A966951006918EF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		E7E1B1E42A960D9F00AEB403 /* HIEHJ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HIEHJ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E1B1E72A960D9F00AEB403 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7E1B1E92A960D9F00AEB403 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +66,8 @@
 			isa = PBXGroup;
 			children = (
 				E7E1B1EB2A960D9F00AEB403 /* MainViewController.swift */,
+				E73EDD882A9664CA006918EF /* ToDoListViewController.swift */,
+				E73EDD8A2A96652F006918EF /* CompletedListViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -67,6 +75,7 @@
 		E7E1B1DB2A960D9F00AEB403 = {
 			isa = PBXGroup;
 			children = (
+				E73EDD8D2A966951006918EF /* .swiftlint.yml */,
 				E7E1B1E62A960D9F00AEB403 /* HIEHJ */,
 				E7E1B1E52A960D9F00AEB403 /* Products */,
 			);
@@ -104,6 +113,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E7E1B1F82A960DA000AEB403 /* Build configuration list for PBXNativeTarget "HIEHJ" */;
 			buildPhases = (
+				E73EDD8C2A9668BE006918EF /* SwiftLint Script */,
 				E7E1B1E02A960D9F00AEB403 /* Sources */,
 				E7E1B1E12A960D9F00AEB403 /* Frameworks */,
 				E7E1B1E22A960D9F00AEB403 /* Resources */,
@@ -156,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E73EDD8E2A966951006918EF /* .swiftlint.yml in Resources */,
 				E7E1B1F42A960DA000AEB403 /* LaunchScreen.storyboard in Resources */,
 				E71EC6022A9660FC003722B3 /* InfoPlist.strings in Resources */,
 				E7E1B1F12A960DA000AEB403 /* Assets.xcassets in Resources */,
@@ -165,14 +176,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E73EDD8C2A9668BE006918EF /* SwiftLint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E7E1B1E02A960D9F00AEB403 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E73EDD892A9664CA006918EF /* ToDoListViewController.swift in Sources */,
 				E7E1B1EC2A960D9F00AEB403 /* MainViewController.swift in Sources */,
 				E7E1B1E82A960D9F00AEB403 /* AppDelegate.swift in Sources */,
 				E7E1B1EA2A960D9F00AEB403 /* SceneDelegate.swift in Sources */,
+				E73EDD8B2A96652F006918EF /* CompletedListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
