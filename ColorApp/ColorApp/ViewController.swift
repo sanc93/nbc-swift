@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let data = ["apple","banana", "cherry", "durian", "elderberry"]
@@ -16,6 +17,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         
         view.addSubview(tableView)
+        
+//        tableView.snp.makeConstraints { make in
+//            make.center.equalToSuperview()
+//            make.width.height.equalTo(300)
+//            make.top.equalToSuperview().offset(100)
+//        }
     }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
